@@ -1,0 +1,11 @@
+server:
+  port: 8082
+mysql:
+  - user: root
+    password: root
+    host: 127.0.0.1
+    port: 33306
+    dbName: shopgo
+    maxIdleConns: 10
+    maxOpenConns: 100
+    connMaxLifetime: 3600
