@@ -1,5 +1,6 @@
 server:
   port: 8082
+
 mysql:
   user: root
   password: root
@@ -9,3 +10,11 @@ mysql:
   maxIdleConns: 10 # số lượng idle connect tối đa
   maxOpenConns: 100
   connMaxLifetime: 3600 # vòng đời tối đa của một connect
+
+logger:
+  log_level: debug
+  file_log_name: "./storages/dev/dev.001.log"
+  max_size: 500
+  max_backups: 3
+  max_age: 28
+  compress: true
