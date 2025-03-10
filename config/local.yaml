@@ -3,10 +3,10 @@ server:
 
 mysql:
   user: root
-  password: root
+  password: 12345678
   host: 127.0.0.1
-  port: 33306
-  dbName: shopgo
+  port: 3306
+  dbName: shopdev
   maxIdleConns: 10 # số lượng idle connect tối đa
   maxOpenConns: 100
   connMaxLifetime: 3600 # vòng đời tối đa của một connect
@@ -18,3 +18,9 @@ logger:
   max_backups: 3
   max_age: 28
   compress: true
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  database: 0
