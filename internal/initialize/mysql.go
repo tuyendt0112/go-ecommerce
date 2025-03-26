@@ -2,8 +2,10 @@ package initialize
 
 import (
 	"fmt"
+	"time"
 
 	"go-ecommerce-backend/global"
+	"go-ecommerce-backend/internal/po"
 
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
@@ -23,14 +25,31 @@ func InitMysql() {
 	db, err := gorm.Open(mysql.Open(s), &gorm.Config{
 		SkipDefaultTransaction: false,
 	})
-	checkErrorPanic(err, "InitMysql initializaation error")
+	checkErrorPanic(err, "InitMysql initialization error")
 	global.Logger.Info("InitMysql Success")
 	global.Mdb = db
+	// set pool
+	setPool()
 }
 func setPool() {
-
+	m := global.Config.Mysql
+	sqlDb, err := global.Mdb.DB()
+	if err != nil {
+		fmt.Println("mysql error: %s:: ,", err)
+	}
+	sqlDb.SetConnMaxIdleTime(time.Duration(m.MaxIdleConns))
+	sqlDb.SetMaxOpenConns(m.MaxOpenConns)
+	sqlDb.SetConnMaxLifetime(time.Duration(m.ConnMaxLifeTime))
+	migrateTables()
 }
 
 func migrateTables() {
-
+	err := global.Mdb.AutoMigrate(
+		&po.User{},
+		&po.Role{},
+		
+	)
+	if err != nil {
+		fmt.Println("mysql error migrate : %s:: ," ,err)
+	}
 }
