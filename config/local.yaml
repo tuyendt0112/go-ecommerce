@@ -6,8 +6,8 @@ mysql:
   user: root
   # password: 12345678
   password: root
-  host: 127.0.0.1
-  port: 33306
+  host: mysql_container #127.0.0.1
+  port: 3306 #33306
   dbName: shopdev
   maxIdleConns: 10 # số lượng idle connect tối đa
   maxOpenConns: 100
@@ -22,7 +22,7 @@ logger:
   compress: true
 
 redis:
-  host: 127.0.0.1
+  host: redis_container #127.0.0.1
   port: 6379
   password:
   database: 0

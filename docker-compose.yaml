@@ -1,0 +1,48 @@
+# version: "3"
+# services:
+#   zookeeper:
+#     image: confluentinc/cp-zookeeper:latest
+#     container_name: zookeeper
+#     ports:
+#       - "2181:2181"
+#     environment:
+#       ZOOKEEPER_CLIENT_PORT: 2181
+
+#   kafka:
+#     image: confluentinc/cp-kafka:latest
+#     container_name: kafka
+#     ports:
+#       - "9092:9092"
+#     environment:
+#       KAFKA_BROKER_ID: 1
+#       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+#       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#     depends_on:
+#       - zookeeper
+
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shopdev
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "33307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+  redis:
+    image: redis:7.0
+    container_name: redis_container
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  mysql_data:
+  redis_data:
