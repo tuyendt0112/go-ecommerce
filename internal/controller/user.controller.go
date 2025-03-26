@@ -8,13 +8,17 @@ import (
 )
 
 type UserController struct {
-	userService *service.UserService
+	userService service.IUserService
 }
 
-func NewUserController() *UserController {
+func NewUserController(userService service.IUserService) *UserController {
 	return &UserController{
-		userService: service.NewUserService(),
+		userService: userService,
 	}
+}
+func (uc *UserController) Register(ctx *gin.Context) {
+	result := uc.userService.Register("", "")
+	response.SuccessResponse(ctx, result, nil)
 }
 
 // controller -> service-> repo->modal->db
@@ -22,3 +26,19 @@ func (uc *UserController) GetUserByID(ctx *gin.Context) {
 
 	response.SuccessResponse(ctx, 20001, "hello jezz")
 }
+
+// type UserController struct {
+// 	userService *service.UserService
+// }
+
+// func NewUserController() *UserController {
+// 	return &UserController{
+// 		userService: service.NewUserService(),
+// 	}
+// }
+
+// // controller -> service-> repo->modal->db
+// func (uc *UserController) GetUserByID(ctx *gin.Context) {
+
+// 	response.SuccessResponse(ctx, 20001, "hello jezz")
+// }

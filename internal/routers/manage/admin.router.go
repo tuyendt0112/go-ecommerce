@@ -3,11 +3,10 @@ package manage
 import "github.com/gin-gonic/gin"
 
 type AdminRouter struct {
-
 }
 
-func (ar *AdminRouter ) InitAdminRouter (Router *gin.RouterGroup){
-	// public 
+func (ar *AdminRouter) InitAdminRouter(Router *gin.RouterGroup) {
+	// public
 	adminRouterPublic := Router.Group("/admin")
 	{
 		adminRouterPublic.POST("/login")
